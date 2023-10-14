@@ -1,5 +1,3 @@
-import os
-
 import openai
 
 content = '''Alcott was associated with the Nonresistance Society, a radical offshoot of the abolitionist movement who believed in the systematic oppression of all human institutions opposed to divine law and the duty to withdraw immediately leaving them to collapse under the burden of their own evil.'''
