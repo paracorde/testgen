@@ -4,7 +4,7 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
         <script type="text/javascript" src="{{ url_for('static', filename='script.js') }}"></script>
         <title>Quizzler</title>
-        <link rel="icon" href="/static/logo.png" type="image/x-icon">
+        <link rel="icon" href="{{ url_for('static', filename='logo.png') }}" type="image/x-icon">
     </head>
     <body>
         <input type="checkbox" id="theme-switch">
