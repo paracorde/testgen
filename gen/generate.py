@@ -88,7 +88,7 @@ def generate_filled_quiz_form(content, questions, quiz): # grades quiz, returns 
     
     return QuizForm(), (score, score_max), saq
 
-grading_instructions = f'''Based on your knowledge and the short answer prompt given, grade the response given on a scale from 0-10. Include an explanation of the grade that directly addresses the student in second-person. Ensure that your response is in the format "score{delimiter}explanation" with strictly no additional context. For example, a proper response would be "8{delimiter}Your response is well-done, but has a minor factual error."'''
+grading_instructions = f'''Based on your knowledge and the short answer prompt given, grade the response given on a scale from 0-10 and include an explanation of the grade after the score. Ensure that your response is in the format "score{delimiter}explanation" with strictly no additional context. For example, a proper response would be "8{delimiter}Your response is well-done, but has a minor factual error."'''
 
 def grade_saqs(content, questions, answers): # returns a list of tuples (score, comment)
     saq = []
