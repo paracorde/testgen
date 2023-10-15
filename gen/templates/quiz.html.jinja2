@@ -1,5 +1,9 @@
 {% extends "base.html.jinja2" %}
 
+{% block title %}
+    Quiz
+{% endblock %}
+
 {% block content %}
     <form method="POST" action="/gradequiz">
         {{ quiz.csrf_token }}
