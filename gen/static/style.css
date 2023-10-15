@@ -15,3 +15,11 @@ h1{
     padding: 20px;
     margin: 50px;
 }
+
+.correct{
+    background-color: #6a8443;
+}
+
+.incorrect{
+    background-color: #966261;
+}
