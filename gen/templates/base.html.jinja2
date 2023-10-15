@@ -3,15 +3,15 @@
     <head>
         <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
         <script type="text/javascript" src="{{ url_for('static', filename='script.js') }}"></script>
-        <title>quickstart</title>
-        <link rel="icon" href="/static/logo.png" type="image/x-icon">
+        <title>Quizzler</title>
+        <link rel="icon" href="{{ url_for('static', filename='logo.png') }}" type="image/x-icon">
     </head>
     <body>
         <input type="checkbox" id="theme-switch">
         <div id="page" class="suppress-animation">
             <div class="header suppress-animation">
                 <div class="left">
-                    <div class="logo"><a href="/">the ultra giga quizzler-tron 1900</a></div>
+                    <div class="logo"><a href="/">Quizzler</a></div>
                 </div>
                 <div class="right">
                     <label id="switch-label" for="theme-switch"></label>
