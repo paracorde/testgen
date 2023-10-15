@@ -1,3 +1,21 @@
-.header{
-    color: #ff0000;
+*{
+    font-family: sans-serif;
+    text-align:center;
+}
+
+h1{
+    font-size: 20px;
+}
+
+.big-box {
+    padding: 20px;
+    margin: 50px;
+}
+
+.correct{
+    background-color: #6a8443;
+}
+
+.incorrect{
+    background-color: #966261;
 }

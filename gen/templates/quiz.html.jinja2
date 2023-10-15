@@ -1,5 +1,18 @@
 {% extends "base.html.jinja2" %}
 
 {% block content %}
-    {{ quiz }}
+    <form method="POST" action="/gradequiz">
+        {{ quiz.csrf_token }}
+        {% for k in quiz_data['mcq'] %}
+            {% set key = 'mcq'+(loop.index0|string) %}
+            {{ (quiz|attr(key)).label }}
+            {{ quiz|attr(key)() }}
+        {% endfor %}
+        {% for k in quiz_data['saq'] %}
+            {% set key = 'saq'+(loop.index0|string) %}
+            {{ (quiz|attr(key)).label }}
+            {{ quiz|attr(key)() }}
+        {% endfor %}
+        <input type="submit" value="upload!">
+    </form>
 {% endblock %}
