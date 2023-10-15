@@ -36,7 +36,7 @@ def generate_quiz(content):
     qs = []
     for i in range(2):
         qs.append({'question': f'Question {i+1}', 'options': ['A', 'B', 'C', 'D'], 'answer': 1})
-    return {'mcq': qs}
+    return {'mcq': qs, 'saq': ['this is a short answer', 'this is another short answer']}
 
 def generate_quiz_form(questions):
     class QuizForm(flask_wtf.FlaskForm):
@@ -44,6 +44,9 @@ def generate_quiz_form(questions):
     
     for i, v in enumerate(questions['mcq']):
         setattr(QuizForm, f'mcq{i}', wtforms.RadioField(v['question'], choices=v['options'], validators=[wtforms.validators.InputRequired()]))
+    
+    for i, v in enumerate(questions['saq']):
+        setattr(QuizForm, f'saq{i}', wtforms.TextAreaField(v, validators=[wtforms.validators.InputRequired()]))
     
     return QuizForm()
 
@@ -53,8 +56,11 @@ def generate_filled_quiz_form(questions, quiz): # grades quiz, returns filled qu
     
     for i, v in enumerate(questions['mcq']):
         attr = f'mcq{i}'
-        # ind = v['options'].index(getattr(quiz, attr).data)
-        setattr(QuizForm, f'mcq{i}', wtforms.RadioField(v['question'], choices=v['options'], default=getattr(quiz, attr).data, render_kw={'disabled': 'disabled'}))
+        setattr(QuizForm, attr, wtforms.RadioField(v['question'], choices=v['options'], default=getattr(quiz, attr).data, render_kw={'disabled': 'disabled'}))
+    
+    for i, v in enumerate(questions['saq']):
+        attr = f'saq{i}'
+        setattr(QuizForm, attr, wtforms.TextAreaField(v, default=getattr(quiz, attr), render_kw={'disabled': 'disabled'}))
     
     score = score_max = 10
     comments = ''

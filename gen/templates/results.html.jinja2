@@ -15,5 +15,10 @@
                 {% endif %}
             </div>
         {% endfor %}
+        {% for k in quiz_data['saq'] %}
+            {% set key = 'saq'+(loop.index0|string) %}
+            {{ (quiz|attr(key)).label }}
+            {{ quiz|attr(key)() }}
+        {% endfor %}
     </form>
 {% endblock %}
