@@ -1,3 +1,17 @@
+*{
+    font-family: sans-serif;
+    text-align:center;
+}
+
 .header{
     color: #ff0000;
+}
+
+h1{
+    font-size: 20px;
+}
+
+.big-box {
+    padding: 20px;
+    margin: 50px;
 }

@@ -1,7 +1,7 @@
 {% extends "base.html.jinja2" %}
 
 {% block content %}
-    <form method="POST" action="/">
+    <form method="POST" action="/" class = "big-box">
         {{ form.csrf_token }}
         {% if form.content.errors %}
             <ul class="errors">
