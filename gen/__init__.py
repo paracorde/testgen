@@ -25,7 +25,8 @@ def display_quiz():
     form = ContentForm()
     if form.validate_on_submit():
         flask.session['content'] = form.content.data
-        quiz_data = generate.generate_questions(form.content.data, 3, 2)
+        # quiz_data = generate.generate_quiz(form.content.data) # this doesn't generate anything
+        quiz_data = generate.generate_questions(form.content.data, 1, 1) # this generates things and runs the api!!!!
         quiz = generate.generate_quiz_form(quiz_data)
         flask.session['quiz_data'] = quiz_data
         return flask.render_template('quiz.html.jinja2', quiz_data=quiz_data, quiz=quiz)

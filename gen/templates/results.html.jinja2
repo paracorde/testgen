@@ -12,7 +12,7 @@
             {% set correct_answer = quiz_data['mcq'][loop.index0]['options'][quiz_data['mcq'][loop.index0]['answer']] %}
             {% set correct = (correct_answer == (quiz|attr(key)).data) %}
             <div class="mcq {{ 'correct' if correct else 'incorrect'}}">
-                <span class="tag">{{ '+1' if correct else '-1' }}</span>
+                <span class="tag">{{ '+1' if correct else '0' }}/1</span>
                 {{ (quiz|attr(key)).label }}
                 {{ quiz|attr(key)() }}
                 <script>highlight("{{ key }}", "{{ correct_answer }}");</script>

@@ -16,7 +16,6 @@ def generate_questions(content, num_mcq, num_saq):
     ]
     i = 0
     while i < num_mcq + num_saq:
-        # print(i, chatlog)
         if i < num_mcq: # still generating mcqs
             prompt = '[MCQ]'
         else: # generating saqs
@@ -34,7 +33,7 @@ def generate_questions(content, num_mcq, num_saq):
                 q = {'question': scont[0], 'options': scont[1:-1], 'answer': int(scont[-1])}
                 assert q['answer'] <= len(q['options']) # ensure that the "correct" answer actually points to some value
             except:
-                i -= 1
+                i += 1
                 continue # try again :(
             questions['mcq'].append(q)
         else:
@@ -43,12 +42,12 @@ def generate_questions(content, num_mcq, num_saq):
         chatlog.append({'role': 'assistant', 'content': cont})
     return questions
 
-def generate_quiz(content):
+def generate_quiz(content): # just for testing
     # qs = []
     # for i in range(2):
     #     qs.append({'question': f'Question {i+1}', 'options': ['A', 'B', 'C', 'D'], 'answer': 1})
     # return {'mcq': qs, 'saq': ['this is a short answer', 'this is another short answer']}
-    return {'mcq': [{'question': "What is the title of Isidore's best known work on the overland trade route from Antioch to India?", 'options': ['The Parthian Trade', 'The Silk Road', 'A Journey around Parthia', 'The Caravan Route'], 'answer': 3}, {'question': 'When did Isidore write "The Parthian Stations"?', 'options': ['1st century BC', '2nd century BC', '1st century AD', '2nd century AD'], 'answer': 3}], 'saq': ['What is the debated value of Isidore\'s distances in the "The Parthian Stations"?']}
+    return {'mcq': [{'question': "What is the title of Isidore's best known work on the overland trade route from Antioch to India?", 'options': ['The Parthian Trade', 'The Silk Road', 'A Journey around Parthia', 'The Caravan Route'], 'answer': 3}, {'question': 'When did Isidore write "The Parthian Stations"?', 'options': ['1st century BC', '2nd century BC', '1st century AD', '2nd century AD'], 'answer': 3}], 'saq': ['What is the debated value of Isidore\'s distances in the "The Parthian Stations"?', 'Wow!']}
 
 def generate_quiz_form(questions):
     class QuizForm(flask_wtf.FlaskForm):
@@ -83,12 +82,12 @@ def generate_filled_quiz_form(content, questions, quiz): # grades quiz, returns 
     
     score_max = len(questions['mcq']) + len(questions['saq'])*10
     saq = grade_saqs(content, questions, answers)
-    # saq = [(7, 'Your response accurately identifies "The Parthian Stations" as Isidore\'s best known work and mentions that it describes the trade routes maintained by the Arsacid Empire. However, it could be improved by providing more specific details about the content of the work or its historical significance.')]
+    # saq = [(7, 'Your response accurately identifies "The Parthian Stations" as Isidore\'s best known work and mentions that it describes the trade routes maintained by the Arsacid Empire. However, it could be improved by providing more specific details about the content of the work or its historical significance.'), (3, 'Thing')] # can be used for testing
     
     for s in saq:
         score += s[0]
     
-    return QuizForm(), (score, score_max), [(7, 'Your response accurately identifies "The Parthian Stations" as Isidore\'s best known work and mentions that it describes the trade routes maintained by the Arsacid Empire. However, it could be improved by providing more specific details about the content of the work or its historical significance.')]
+    return QuizForm(), (score, score_max), saq
 
 grading_instructions = f'''Based on your knowledge and the short answer prompt given, grade the response given on a scale from 0-10. Include an explanation of the grade that directly addresses the student in second-person. Ensure that your response is in the format "score{delimiter}explanation" with strictly no additional context. For example, a proper response would be "8{delimiter}Your response is well-done, but has a minor factual error."'''
 
@@ -100,13 +99,13 @@ def grade_saqs(content, questions, answers): # returns a list of tuples (score, 
     ]
     i = 0
     while i < len(questions['saq']):
-        i += 1
         prompt = f'''Prompt: {questions['saq'][i]}\nStudent response: {answers[i]}'''
         chatlog.append({'role': 'user', 'content': prompt})
         response = openai.ChatCompletion.create(
             model = 'gpt-3.5-turbo',
             messages = chatlog
         )
+        i += 1
         cont = response.choices[0].message.content
         try:
             conts = cont.split(delimiter)
