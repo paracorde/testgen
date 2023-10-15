@@ -90,7 +90,7 @@
     padding: 5px;
 }
 
-#page input:focus{
+#page input:focus, #page textarea:focus{
     border: var(--text-color) 5px solid;
 }
 
@@ -216,4 +216,17 @@ div.incorrect .tag{
     80% { transform: scale(1.1) rotate(5deg) }
     80% { transform: scale(1.2) rotate(-5deg) }
     100% { transform: scale(1) rotate(0) }
+}
+
+input[type=number]{
+    margin-top: 8px;
+    background-color: #00000000;
+    border: var(--background-color) 3px solid !important;
+    border-bottom: var(--text-color) 3px solid !important;
+}
+
+input[type=number]:focus{
+    border: var(--text-color) 3px solid !important;
+    background-color: var(--background-color);
+    color: var(--text-color);
 }

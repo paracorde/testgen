@@ -3,10 +3,12 @@
 
 {% block content %}
    <form method="POST" action="/quiz">
-       {{ form.csrf_token }}
-       {{ form.content(rows=10, cols=50) }}
-       {{ form.num_mcq.label }} {{ form.num_mcq() }}
-       {{ form.num_saq.label }} {{ form.num_saq() }}
-       <input type="submit" value="upload!">
+        {{ form.csrf_token }}
+        {{ form.content(rows=10, cols=50) }}
+        <center>
+            {{ form.num_mcq.label }} {{ form.num_mcq() }}
+            {{ form.num_saq.label }} {{ form.num_saq() }}
+        </center>
+        <input type="submit" value="upload!">
    </form>
 {% endblock %}
