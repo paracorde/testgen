@@ -3,6 +3,7 @@ from . import generate
 import flask
 import flask_wtf
 import wtforms
+from flask import request
 
 import os
 
@@ -24,6 +25,8 @@ def index():
 def display_quiz():
     form = ContentForm()
     if form.validate_on_submit():
+        mcqs = int(request.form['mcq'])
+        frqs = int(request.form['frqs'])
         flask.session['content'] = form.content.data
         # quiz_data = generate.generate_quiz(form.content.data) # this doesn't generate anything
         quiz_data = generate.generate_questions(form.content.data, 1, 1) # this generates things and runs the api!!!!
