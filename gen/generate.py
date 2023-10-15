@@ -31,8 +31,8 @@ def generate_questions(content, num_mcq, num_saq):
             try:
                 q = {'question': scont[0], 'options': scont[1:-1], 'answer': int(scont[-1])}
                 assert q['answer'] <= len(q['options']) # ensure that the "correct" answer actually points to some value
+                assert len(scont) == 6 
             except:
-                i += 1
                 continue # try again :(
             questions['mcq'].append(q)
         else:
@@ -104,14 +104,14 @@ def grade_saqs(content, questions, answers): # returns a list of tuples (score, 
             model = 'gpt-3.5-turbo',
             messages = chatlog
         )
-        i += 1
         cont = response.choices[0].message.content
         try:
             conts = cont.split(delimiter)
-            saq.append((int(conts[0]), conts[1]))
-            assert conts[0] in range(11)
+            assert len(conts) == 2 
+    
         except:
             continue
-        # i += 1
+        saq.append((int(conts[0]), conts[1]))
+        i += 1
         chatlog.append({'role': 'assistant', 'content': cont})
     return saq
