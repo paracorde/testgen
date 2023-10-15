@@ -4,14 +4,18 @@
     <form method="POST" action="/gradequiz">
         {{ quiz.csrf_token }}
         {% for k in quiz_data['mcq'] %}
-            {% set key = 'mcq'+(loop.index0|string) %}
-            {{ (quiz|attr(key)).label }}
-            {{ quiz|attr(key)() }}
+            <div class="mcq">
+                {% set key = 'mcq'+(loop.index0|string) %}
+                {{ (quiz|attr(key)).label }}
+                {{ quiz|attr(key)() }}
+            </div>
         {% endfor %}
         {% for k in quiz_data['saq'] %}
-            {% set key = 'saq'+(loop.index0|string) %}
-            {{ (quiz|attr(key)).label }}
-            {{ quiz|attr(key)() }}
+            <div class="saq">
+                {% set key = 'saq'+(loop.index0|string) %}
+                {{ (quiz|attr(key)).label }}
+                {{ quiz|attr(key)() }}
+            </div>
         {% endfor %}
         <input type="submit" value="upload!">
     </form>

@@ -3,13 +3,6 @@
 {% block content %}
     <form method="POST" action="/quiz">
         {{ form.csrf_token }}
-        {% if form.content.errors %}
-            <ul class="errors">
-                {% for error in form.content.errors %}
-                    <li>{{ error }}</li>
-                {% endfor %}
-            </ul>
-        {% endif %}
         {{ form.content(rows=10, cols=50) }}
         <input type="submit" value="upload!">
     </form>

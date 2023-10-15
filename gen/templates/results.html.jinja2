@@ -2,23 +2,33 @@
 
 {% block content %}
     <form>
-        {{ quiz.csrf_token }}
+        <div class="scorebox">
+            <div class="score">
+                {{ score }} / {{ score_max}}
+            </div>
+        </div>
         {% for k in quiz_data['mcq'] %}
             {% set key = 'mcq'+(loop.index0|string) %}
             {% set correct_answer = quiz_data['mcq'][loop.index0]['options'][quiz_data['mcq'][loop.index0]['answer']] %}
             {% set correct = (correct_answer == (quiz|attr(key)).data) %}
-            <div class="{{ 'correct' if correct else 'incorrect'}}">
+            <div class="mcq {{ 'correct' if correct else 'incorrect'}}">
+                <span class="tag">{{ '+1' if correct else '-1' }}</span>
                 {{ (quiz|attr(key)).label }}
                 {{ quiz|attr(key)() }}
-                {% if not correct %}
-                    <div>Correct answer: {{ correct_answer }}</div>
-                {% endif %}
+                <script>highlight("{{ key }}", "{{ correct_answer }}");</script>
             </div>
         {% endfor %}
         {% for k in quiz_data['saq'] %}
             {% set key = 'saq'+(loop.index0|string) %}
-            {{ (quiz|attr(key)).label }}
-            {{ quiz|attr(key)() }}
+            {% set score = saq[loop.index0][0] %}
+            <div class="saq {{ 'correct' if score > 5 else 'incorrect' }}">
+                <span class="tag">+{{ score }}/10</span>
+                {{ (quiz|attr(key)).label }}
+                {{ quiz|attr(key)() }}
+                <p class="feedback">
+                    {{ saq[loop.index0][1] }}
+                </p>
+            </div>
         {% endfor %}
     </form>
 {% endblock %}

@@ -1,13 +1,27 @@
 <!doctype html>
 <html>
     <head>
-
         <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+        <script type="text/javascript" src="{{ url_for('static', filename='script.js') }}"></script>
         <title>quickstart</title>
     </head>
     <body>
-        <h1>Make A Test<h1>
-
-        {% block content %}{% endblock %}
+        <input type="checkbox" id="theme-switch">
+        <div id="page" class="suppress-animation">
+            <div class="header suppress-animation">
+                <div class="left">
+                    <div class="logo"><a href="/">the ultra giga quizzler-tron 1900</a></div>
+                </div>
+                <div class="right">
+                    <label id="switch-label" for="theme-switch"></label>
+                </div>
+                <div class="center">
+                </div>
+            </div>
+            <div class="content suppress-animation">
+                {% block content %}{% endblock %}
+            </div>
+            <div class="footer suppress-animation">hiii what's up</div>
+        </div>
     </body>
 </html>

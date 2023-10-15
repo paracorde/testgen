@@ -1,21 +1,219 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono&family=Sen&display=swap');
+
 *{
-    font-family: sans-serif;
-    text-align:center;
+    font-family: 'Sen', sans-serif;
+    box-sizing: border-box;
 }
 
-h1{
-    font-size: 20px;
+:root{
+    --light-text: #222222;
+    --light-background: #d2cec8;
+    --light-switch-icon: ">";
+    --light-correct: #6a8443;
+    --light-incorrect: #966261;
+
+    --dark-text: #ffffff;
+    --dark-background: #000000;
+    --dark-correct: #0cbd2a;
+    --dark-incorrect: #a40a3c;
+    --dark-switch-icon: "@";
+
+    --text-color: var(--dark-text);
+    --background-color: var(--dark-background);
+    --correct-color: var(--dark-correct);
+    --incorrect-color: var(--dark-incorrect);
+    --switch-icon: var(--dark-switch-icon);
 }
 
-.big-box {
-    padding: 20px;
-    margin: 50px;
+:focus{outline: none;}
+::-moz-focus-inner{border:0;}
+
+#theme-switch{
+    position: absolute !important;
+    height: 1px;
+    width: 1px;
+    overflow: hidden;
+    clip: rect(1px, 1px, 1px, 1px);
 }
 
-.correct{
+#theme-switch:checked ~ #page{
+    --text-color: var(--light-text);
+    --background-color: var(--light-background);
+    --accent-color: var(--light-accent);
+    --switch-icon: var(--light-switch-icon);
+    --correct-color: var(--light-correct);
+    --incorrect-color: var(--light-incorrect);
+}
+
+#switch-label::before{
+    font-family: 'DM Mono', monospace;
+    content: var(--switch-icon);
+    font-size: 3em;
+    height: 2em;
+    width: 2em;
+}
+
+#page{
+    color: var(--text-color);
+    background-color: var(--background-color);
+    transition: all 0.2s ease-in-out;
+    min-height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+}
+
+#page > div{
+    padding: 2em 6em 2em 6em;
+    /* color: var(--text-color);
+    background-color: var(--background-color); */
+}
+
+#page input, #page textarea{
+    transition: all 0.2s ease-in-out;
+    /* transition: border 0.05s ease-in-out; */
+}
+
+#page input[type=submit]{
+    margin-top: 5px;
+    display: block;
+    width: 100%;
+    color: var(--text-color);
+    background-color: var(--background-color);
+    border: var(--text-color) 3px solid;
+    padding: 5px;
+}
+#page input[type=submit]:hover, #page input[type=submit]:focus{
+    color: var(--background-color);
+    background-color: var(--text-color);
+    border: var(--text-color) 3px solid;
+    padding: 5px;
+}
+
+#page input:focus{
+    border: var(--text-color) 5px solid;
+}
+
+body{
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+.header{
+    line-height: 3em;
+    border-bottom: var(--text-color) 3px solid;
+    width: 100vw;
+}
+
+.header .left{
+    float: left;
+}
+
+.header .center{
+    overflow: hidden;
+}
+
+.header .right{
+    float: right;
+}
+
+.logo a{
+    font-size: 2em;
+    font-family: 'DM Mono', monospace;
+    font-weight: bold;
+    color: var(--text-color);
+    text-decoration: none;
+}
+
+#page textarea{
+    margin-top: 10px;
+    padding: 1em;
+    height: 10em;
+    width: 100%;
+    resize: none;
+    display: block;
+    color: var(--text-color);
+    background-color: var(--background-color);
+    border: var(--text-color) 3px solid;
+}
+
+#page .footer{
+    border-top: var(--text-color) 3px solid;
+    margin-top: auto;
+}
+
+/* .correct{
     background-color: #6a8443;
 }
 
 .incorrect{
     background-color: #966261;
+} */
+
+.suppress-animation{
+    -webkit-transition: none !important;
+    -moz-transition: none !important;
+    -o-transition: none !important;
+    transition: none !important;
+}
+
+form ul{
+    list-style-type: none;
+}
+
+div.mcq, div.saq{
+    margin-top: 10px;
+}
+
+div.mcq label.correct-label{
+    color: var(--correct-color);
+}
+
+div.mcq.incorrect input[type=radio]:checked+label{
+    color: var(--incorrect-color);
+}
+
+div.mcq.correct > label{
+    color: var(--correct-color);
+}
+
+div.mcq.incorrect > label{
+    color: var(--incorrect-color);
+}
+
+.tag{
+    padding: 3px;
+}
+
+div.correct .tag{
+    background-color: var(--correct-color);
+}
+
+div.incorrect .tag{
+    background-color: var(--incorrect-color);
+}
+
+.scorebox{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1em;
+}
+
+.score{
+    padding: 2em;
+    font-size: 1.5em;
+    border: var(--text-color) 3px solid;
+    animation: jump-shaking 3s infinite;
+}
+
+@keyframes jump-shaking {
+    0% { transform: scale(1) rotate(0) }
+    20% { transform: scale(0.9) rotate(-5deg) }
+    30% { transform: scale(1.4) rotate(5deg) }
+    50% { transform: scale(0.9) rotate(-5deg) }
+    80% { transform: scale(1.1) rotate(5deg) }
+    80% { transform: scale(1.2) rotate(-5deg) }
+    100% { transform: scale(1) rotate(0) }
 }
