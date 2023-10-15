@@ -7,6 +7,7 @@ name = "pypi"
 openai = "*"
 flask = "*"
 flask-wtf = "*"
+colorama = {version = "*", sys_platform = "== 'win32'"}
 
 [dev-packages]
 
