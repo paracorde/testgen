@@ -1,19 +1,12 @@
 {% extends "base.html.jinja2" %}
 
-{% block title %}
-    Input Data
-{% endblock %}
 
 {% block content %}
-    <form method="POST" action="/quiz">
-        {{ form.csrf_token }}
-        {{ form.content(rows=10, cols=50, placeholder='Enter your text here...') }}
-        <input type="submit" value="upload!"
-        <div class="form-group">
-            <label for="mcqs">Number of MCQs:</label>
-            <input type="number" class="form-control" id="mcqs" name="mcqs" placeholder="Enter number of MCQs">
-            <label for="frqs">Number of FRQs:</label>
-            <input type="number" class="form-control" id="frqs" name="frqs" placeholder="Enter number of FRQs">
-        </div>
-    </form>
+   <form method="POST" action="/quiz">
+       {{ form.csrf_token }}
+       {{ form.content(rows=10, cols=50) }}
+       {{ form.num_mcq.label }} {{ form.num_mcq() }}
+       {{ form.num_saq.label }} {{ form.num_saq() }}
+       <input type="submit" value="upload!">
+   </form>
 {% endblock %}
