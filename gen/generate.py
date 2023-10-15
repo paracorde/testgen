@@ -6,7 +6,7 @@ import random
 
 delimiter = '--@'
 
-instructions = f'''Given the information above, you have two tasks. Task 1: If the tag [MCQ] is seen, create a multiple choice question with 4 choices and the index of the correct choice at the end. Ensure your response is always formatted like this: 'question{delimiter}option1{delimiter}option2{delimiter}option3{delimiter}option4{delimiter}correctIndex'. For example, with a paragraph about math, your response must look like this: '2+2={delimiter}2{delimiter}3{delimiter}4{delimiter}5{delimiter}2'. The output must be a single line omitting option letters and strictly without additional context. If the tag [SAQ] is seen, generate a single short answer question on one line strictly without context.'''
+instructions = f'''Given the information above, you have two tasks. Task 1: If the tag [MCQ] is seen, create a multiple choice question with 4 choices and the index (starting at 0) of the correct choice at the end. Ensure your response is always formatted like this: 'question{delimiter}option1{delimiter}option2{delimiter}option3{delimiter}option4{delimiter}correctIndex'. For example, with a paragraph about math, your response must look like this: '2+2={delimiter}2{delimiter}3{delimiter}4{delimiter}5{delimiter}2'. The output must be a single line omitting option letters and strictly without additional context. Task 2: If the tag [SAQ] is seen, generate a single short answer question on one line strictly without context.'''
 def generate_questions(content, num_mcq, num_saq):
     questions = {'mcq': [], 'saq': []}
     chatlog = [
